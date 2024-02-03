@@ -1,9 +1,0 @@
-.form {
-  display: flex;
-  flex-direction: row;
-}
-
-.form button {
-  margin: 10px 0.5rem 0;
-  height: 20px;
-}

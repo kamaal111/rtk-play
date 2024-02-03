@@ -1,11 +1,10 @@
 import React from "react";
+import stylex from "@stylexjs/stylex";
 
 import Input from "@/components/input";
 
 import { useAppDispatch } from "@/store/hooks";
 import { todoAdded } from "../store/slice";
-
-import styles from "./todo-form.module.css";
 
 const currentTodoMinimumLength = 1;
 
@@ -27,7 +26,7 @@ function TodoForm() {
   );
 
   return (
-    <form className={styles["form"]} onSubmit={submitTodo}>
+    <form onSubmit={submitTodo} {...stylex.props(styles.form)}>
       <Input
         name="todo"
         label="Todo: "
@@ -37,11 +36,27 @@ function TodoForm() {
         required
         onChange={(value) => setCurrentTodo(value)}
       />
-      <button type="submit" disabled={!currentTodoIsValid}>
+      <button
+        type="submit"
+        disabled={!currentTodoIsValid}
+        {...stylex.props(styles.formButton)}
+      >
         Submit
       </button>
     </form>
   );
 }
+
+const styles = stylex.create({
+  form: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  formButton: {
+    marginHorizontal: "10px",
+    marginVertical: "12px",
+    height: "20px",
+  },
+});
 
 export default TodoForm;

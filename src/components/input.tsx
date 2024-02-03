@@ -1,4 +1,4 @@
-import styles from "./input.module.css";
+import stylex from "@stylexjs/stylex";
 
 function Input({
   label,
@@ -20,7 +20,7 @@ function Input({
   onChange: (value: string) => void;
 }) {
   return (
-    <div className={styles["input"]}>
+    <div {...stylex.props(styles.input)}>
       <label htmlFor={name}>{label}</label>
       <input
         type={type}
@@ -34,5 +34,11 @@ function Input({
     </div>
   );
 }
+
+const styles = stylex.create({
+  input: {
+    marginVertical: "10px",
+  },
+});
 
 export default Input;
