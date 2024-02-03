@@ -1,10 +1,10 @@
 import { createSelector } from "@reduxjs/toolkit";
 
-import type { RootState } from "@/store";
+import type { TodosState } from "./slice";
 
-export const selectTodo = createSelector(
-  (todos: RootState["todos"]) => todos,
-  (_: RootState["todos"], uuid: string) => uuid,
+export const selectTodoItem = createSelector(
+  (todos: TodosState) => todos,
+  (_: TodosState, uuid: string) => uuid,
   (todos, uuid) => {
     return todos.items.find((todo) => todo.uuid === uuid);
   }
