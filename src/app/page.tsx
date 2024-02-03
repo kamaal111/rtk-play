@@ -8,6 +8,8 @@ import TodoList from "@/features/todos/components/todo-list";
 import { useAppDispatch } from "@/store/hooks";
 import { todoAdded } from "@/features/todos/store/slice";
 
+import styles from "./page.module.css";
+
 const currentTodoMinimumLength = 1;
 
 function Home() {
@@ -30,7 +32,7 @@ function Home() {
   return (
     <main>
       <h1>Todos</h1>
-      <form onSubmit={submitTodo}>
+      <form className={styles["form"]} onSubmit={submitTodo}>
         <Input
           name="todo"
           label="Todo: "

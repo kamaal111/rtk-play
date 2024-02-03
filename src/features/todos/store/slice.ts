@@ -6,7 +6,7 @@ import { selectTodo } from "./selectors";
 interface Todo {
   uuid: string;
   text: string;
-  completed: Boolean;
+  completed: boolean;
 }
 
 export interface TodosState {
@@ -23,28 +23,26 @@ const todosSlice = createSlice({
   name,
   initialState,
   reducers: {
-    todoAdded(
-      state: TodosState,
-      { payload: { text } }: { payload: { text: string } }
-    ) {
+    todoAdded(state: TodosState, action: { payload: { text: string } }) {
+      const { text } = action.payload;
       state.items.push({
         uuid: uuid.v4(),
         text,
         completed: false,
       });
     },
-    todoToggled(
+    todoChanged(
       state: TodosState,
-      { payload: { uuid } }: { payload: { uuid: string } }
+      action: { payload: { uuid: string; newState: boolean } }
     ) {
+      const { uuid, newState } = action.payload;
       const todo = selectTodo(state, uuid);
-      // const todo = state.items.find((todo) => todo.uuid === payload);
       if (todo == null) return;
 
-      todo.completed = todo.completed;
+      todo.completed = newState;
     },
   },
 });
 
-export const { todoAdded, todoToggled } = todosSlice.actions;
+export const { todoAdded, todoChanged } = todosSlice.actions;
 export default todosSlice;
