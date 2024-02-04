@@ -28,15 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# REST framework
-
-REST_FRAMEWORK = {
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 10,
-    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "EXCEPTION_HANDLER": "rtkplay.exceptions.custom_exception_handler",
-}
-
 
 # Application definition
 
@@ -47,10 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "rest_framework",
-    "rest_framework.authtoken",
-    "drf_spectacular",
     "rtkplay.todos",
+    "rtkplay.health",
 ]
 
 MIDDLEWARE = [

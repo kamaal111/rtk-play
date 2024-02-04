@@ -23,7 +23,6 @@
 				"tamasfe.even-better-toml",
 				"oven.bun-vscode",
 				"ms-python.python",
-				"charliermarsh.ruff",
 			]
 		}
 	},
