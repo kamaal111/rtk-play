@@ -7,6 +7,9 @@ run-dev-website:
 run-dev-server:
 	just server/run-dev
 
+create-super-user email:
+	just server/create-super-user {{ email }}
+
 bootstrap:
 	just website/bootstrap
 	just server/bootstrap

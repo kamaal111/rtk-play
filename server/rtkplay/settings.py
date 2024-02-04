@@ -90,10 +90,10 @@ WSGI_APPLICATION = "rtkplay.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.environ.get("POSTGRES_NAME", "postgres"),
+        "NAME": os.environ.get("POSTGRES_NAME", "rtk-play-db"),
         "USER": os.environ.get("POSTGRES_USER", "postgres"),
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "pass"),
-        "HOST": "rtk-play-db",
+        "HOST": os.environ.get("POSTGRES_HOST", "rtk-play-db"),
         "PORT": os.environ.get("POSTGRES_PORT", "5432"),
     }
 }
