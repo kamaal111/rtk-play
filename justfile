@@ -1,12 +1,11 @@
 default:
 	just --list
 
-run-dev: install-node-modules
-    #!/bin/zsh
+run-dev-website:
+    just website/run-dev
 
-    bun dev
-
-bootstrap: install-node-modules
+bootstrap:
+	just website/bootstrap
 
 install-node-modules:
 	#!/bin/zsh
