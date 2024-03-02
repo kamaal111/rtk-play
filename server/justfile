@@ -1,51 +1,16 @@
 set export
 
-PORT := "8000"
-POSTGRES_PORT := "5432"
-POSTGRES_NAME := "rtk-play-db"
-POSTGRES_USER := "postgres"
-POSTGRES_PASSWORD := "pass"
-POSTGRES_HOST := "rtk-play-db"
-VIRTUAL_ENVIRONMENT := ".venv"
-
 default:
 	just --list
 
-bootstrap: setup-dev-environment
+run-dev: install-node-modules
+    #!/bin/zsh
 
-run-dev: install-python-packages migrate
+    bun dev
+
+bootstrap: install-node-modules
+
+install-node-modules:
 	#!/bin/zsh
 
-	. $VIRTUAL_ENVIRONMENT/bin/activate
-	python3 manage.py runserver 0.0.0.0:$PORT
-
-migrate:
-	#!/bin/zsh
-
-	. $VIRTUAL_ENVIRONMENT/bin/activate
-	python3 manage.py migrate
-
-create-super-user email: install-python-packages migrate
-	#!/bin/zsh
-
-	. $VIRTUAL_ENVIRONMENT/bin/activate
-	python3 manage.py createsuperuser --username admin --email {{ email }}
-
-setup-dev-environment: initialize-dev-environment install-python-packages migrate
-
-initialize-dev-environment:
-	#!/bin/zsh
-
-	if [ ! -d $VIRTUAL_ENVIRONMENT ]
-	then
-		python3 -m venv $VIRTUAL_ENVIRONMENT
-	fi
-	. $VIRTUAL_ENVIRONMENT/bin/activate
-	pip install --upgrade pip
-	pip install poetry
-
-install-python-packages:
-	#!/bin/zsh
-
-	. $VIRTUAL_ENVIRONMENT/bin/activate
-	poetry install --no-root
+	bun i
