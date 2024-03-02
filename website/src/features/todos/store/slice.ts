@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import * as uuid from "uuid";
 import { z } from "zod";
 
-import { selectTodoItem } from "./selectors";
 import {
   storeInLocalStorage,
   loadValidatedValueFromStorage,
@@ -35,39 +34,42 @@ const localStorageKeys = (
   };
 }, {} as Record<keyof TodosState, string>);
 
-const todosSlice = createSlice({
-  name,
-  initialState,
-  reducers: {
-    loadTodosFromLocalStorage(state) {
-      state.items =
-        loadValidatedValueFromStorage(localStorageKeys.items, Todos) ?? [];
-    },
-    todoAdded(state, action: { payload: { text: string } }) {
-      const { text } = action.payload;
-      const newTodo = {
-        uuid: uuid.v4(),
-        text,
-        completed: false,
-      };
-      const newItems = state.items.concat([newTodo]);
-      state.items = newItems;
-      storeInLocalStorage(localStorageKeys.items, newItems);
-    },
-    todoChanged(
-      state,
-      action: { payload: { uuid: string; newState: boolean } }
-    ) {
-      const { uuid, newState } = action.payload;
-      const todo = selectTodoItem(state, uuid);
-      if (todo == null) return;
+const selectors = {};
 
-      todo.completed = newState;
-      storeInLocalStorage(localStorageKeys.items, state.items);
-    },
+const reducers = {
+  loadTodosFromLocalStorage(state: TodosState) {
+    state.items =
+      loadValidatedValueFromStorage(localStorageKeys.items, Todos) ?? [];
   },
-});
+  todoAdded(state: TodosState, action: { payload: { text: string } }) {
+    const { text } = action.payload;
+    const newTodo = {
+      uuid: uuid.v4(),
+      text,
+      completed: false,
+    };
+    const newItems = state.items.concat([newTodo]);
+    state.items = newItems;
+    storeInLocalStorage(localStorageKeys.items, newItems);
+  },
+  todoChanged(
+    state: TodosState,
+    action: { payload: { uuid: string; newState: boolean } }
+  ) {
+    const { uuid, newState } = action.payload;
+    const todo = state.items.find((todo) => todo.uuid === uuid);
+    if (todo == null) return;
+
+    todo.completed = newState;
+    storeInLocalStorage(localStorageKeys.items, state.items);
+  },
+};
+
+const todosSlice = createSlice({ name, initialState, selectors, reducers });
 
 export const { todoAdded, todoChanged, loadTodosFromLocalStorage } =
   todosSlice.actions;
+export const {} = todosSlice.selectors;
+export const reducer = todosSlice.reducer;
+
 export default todosSlice;

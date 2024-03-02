@@ -1,10 +1,29 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { setupListeners } from "@reduxjs/toolkit/query";
 
-import todosSlice, {
+import {
   loadTodosFromLocalStorage,
+  reducer as todosReducer,
 } from "@/features/todos/store/slice";
+import {
+  reducer as healthAPIReducer,
+  reducerPath as healthAPIReducerPath,
+  middleware as healthAPIMiddleware,
+} from "@/features/api/store/health-api";
 
-const store = configureStore({ reducer: { todos: todosSlice.reducer } });
+const reducer = {
+  todos: todosReducer,
+  [healthAPIReducerPath]: healthAPIReducer,
+};
+
+const store = configureStore({
+  reducer,
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(healthAPIMiddleware);
+  },
+});
+
+setupListeners(store.dispatch);
 
 export function loadStateFromLocalStorage() {
   store.dispatch(loadTodosFromLocalStorage());

@@ -5,8 +5,8 @@ FROM python:$PYTHON_VERSION-slim-bookworm
 
 RUN apt update && apt install -y zsh curl git vim httpie unzip
 
-# Install Node
-RUN curl -fsSL https://deb.nodesource.com/setup_$NODE_VERSION.x | bash - && apt update && apt install -y nodejs
+# Node
+RUN curl -fsSL https://deb.nodesource.com/setup_$NODE_VERSION.x | bash - && apt update && apt install -y nodejs npm
 
 # Oh My Zsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
