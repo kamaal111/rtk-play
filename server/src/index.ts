@@ -4,12 +4,17 @@ import { swagger } from "@elysiajs/swagger";
 
 import health from "./health";
 import decorators from "./decorators";
+import users from "./users/users";
+import errorValidator, { errors } from "./errors";
 
 const app = new Elysia({ prefix: "/api/v1" })
   .decorate(decorators)
+  .error(errors)
   .use(cors())
   .use(swagger())
-  .use(health())
+  .onError(errorValidator)
+  .use(health)
+  .use(users)
   .listen(8000);
 
 console.log(

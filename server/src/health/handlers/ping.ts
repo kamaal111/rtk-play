@@ -1,6 +1,6 @@
-import type { Decorators } from "../../types";
+import type { Context } from "../../types";
 
-async function ping({}: Decorators) {
+async function ping({}: Context) {
   return { details: "pong" };
 }
 
