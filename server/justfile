@@ -1,14 +1,21 @@
 set export
 
+DATABASE_URL := "postgresql://postgres:pass@host.docker.internal:5432/rtk-play-db"
+
 default:
 	just --list
 
-run-dev: install-node-modules
+run-dev: install-node-modules migrate
     #!/bin/zsh
 
     bun dev
 
-bootstrap: install-node-modules
+bootstrap: install-node-modules migrate
+
+migrate:
+    #!/bin/zsh
+
+    bun migrate
 
 install-node-modules:
 	#!/bin/zsh

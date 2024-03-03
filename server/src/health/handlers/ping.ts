@@ -1,4 +1,6 @@
-function ping() {
+import type { Decorators } from "../../types";
+
+async function ping({}: Decorators) {
   return { details: "pong" };
 }
 

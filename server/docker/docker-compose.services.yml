@@ -1,0 +1,13 @@
+services:
+  db:
+    container_name: rkt-play-server-db
+    image: postgres:16
+    volumes:
+      - ../data/db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: rtk-play-db
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_PASSWORD: pass
+      POSTGRES_USER: postgres
