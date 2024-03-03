@@ -13,7 +13,7 @@ const hooks = {
   }),
 };
 
-async function handler({ db, body }: Context<typeof hooks>) {
+async function handler({ db, body, set }: Context<typeof hooks>) {
   const { email, password } = body;
   const existingUser = await db.user.findFirst({
     where: { email },
@@ -24,10 +24,12 @@ async function handler({ db, body }: Context<typeof hooks>) {
     algorithm: "bcrypt",
     cost: 8,
   });
-  const user = await db.user.create({
+  await db.user.create({
     data: { password: hashedPassword, email },
   });
-  return { details: user };
+
+  set.status = 201;
+  return { details: "Successfully created" };
 }
 
 const signUp = {

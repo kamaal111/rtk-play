@@ -18,7 +18,7 @@ const healthAPI = createApi({
   endpoints(builder) {
     return {
       getPing: builder.query<PingResponse, void>({
-        query: () => ({ url: `ping` }),
+        query: () => ({ url: "ping" }),
       }),
     };
   },
