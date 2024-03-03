@@ -23,9 +23,10 @@ function handleValidationError({ error }: ErrorHandlerParams) {
   };
 }
 
-function handleUserAlreadyExistsError({ error }: ErrorHandlerParams) {
+function handleUserAlreadyExistsError({ error, set }: ErrorHandlerParams) {
   if (!(error instanceof UserAlreadyExists)) return;
 
+  set.status = 409;
   return { details: error.message };
 }
 
