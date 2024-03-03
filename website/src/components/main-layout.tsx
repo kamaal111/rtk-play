@@ -8,8 +8,8 @@ function MainLayout({
   title: string;
 }) {
   React.useEffect(() => {
-    fetch("http://0.0.0.0:8000")
-      .then((response) => response.text())
+    fetch("http://127.0.0.1:8000/health/ping")
+      .then((response) => response.json())
       .then((response) => console.log(response))
       .catch((error) => console.error(error));
   }, []);
