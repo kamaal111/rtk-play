@@ -3,14 +3,16 @@
 import React from "react";
 
 import MainLayout from "@/components/main-layout";
-import TodoForm from "@/features/todos/components/todo-form";
-import TodoList from "@/features/todos/components/todo-list";
+import SignUpForm from "@/features/login/components/sign-up-form";
+
+type LoginState = "sign-up";
 
 function Home() {
+  const [loginState, setLoginState] = React.useState<LoginState>("sign-up");
+
   return (
-    <MainLayout title="Todos">
-      <TodoForm />
-      <TodoList />
+    <MainLayout title="Login">
+      {loginState === "sign-up" ? <SignUpForm /> : null}
     </MainLayout>
   );
 }

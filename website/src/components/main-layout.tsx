@@ -6,7 +6,7 @@ function MainLayout({
   title: string;
 }) {
   return (
-    <main>
+    <main className="m-4">
       <h1>{title}</h1>
       {children}
     </main>
