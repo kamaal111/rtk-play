@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { BASE_URL } from "../constants";
+import { API_BASE_URL } from "@/constants";
 
 type PingResponse = {
   details: "pong";
@@ -9,7 +9,7 @@ type PingResponse = {
 export const reducerPath = "health-api";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: new URL("health/", BASE_URL).toString(),
+  baseUrl: new URL("health/", API_BASE_URL).toString(),
 });
 
 const healthAPI = createApi({

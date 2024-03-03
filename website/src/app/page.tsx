@@ -3,7 +3,7 @@
 import React from "react";
 
 import MainLayout from "@/components/main-layout";
-import SignUpForm from "@/features/login/components/sign-up-form";
+import SignUpForm from "@/features/users/components/sign-up-form";
 
 type LoginState = "sign-up";
 

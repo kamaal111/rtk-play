@@ -9,7 +9,7 @@ import {
   reducer as healthAPIReducer,
   reducerPath as healthAPIReducerPath,
   middleware as healthAPIMiddleware,
-} from "@/features/api/store/health-api";
+} from "@/features/api/health-api";
 
 const reducer = {
   todos: todosReducer,
