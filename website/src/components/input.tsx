@@ -1,4 +1,5 @@
-import stylex from "@stylexjs/stylex";
+import { Input as ShadInput } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 function Input({
   label,
@@ -20,9 +21,9 @@ function Input({
   onChange: (value: string) => void;
 }) {
   return (
-    <div {...stylex.props(styles.input)}>
-      <label htmlFor={name}>{label}</label>
-      <input
+    <div className="my-2.5">
+      <Label htmlFor={name}>{label}</Label>
+      <ShadInput
         type={type}
         name={name}
         placeholder={placeholder}
@@ -34,11 +35,5 @@ function Input({
     </div>
   );
 }
-
-const styles = stylex.create({
-  input: {
-    marginVertical: "10px",
-  },
-});
 
 export default Input;
