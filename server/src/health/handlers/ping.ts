@@ -1,5 +1,5 @@
 function ping() {
-  return { message: "pong" };
+  return { details: "pong" };
 }
 
 export default ping;
