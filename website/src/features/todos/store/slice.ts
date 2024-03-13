@@ -67,9 +67,4 @@ const reducers = {
 
 const todosSlice = createSlice({ name, initialState, selectors, reducers });
 
-export const { todoAdded, todoChanged, loadTodosFromLocalStorage } =
-  todosSlice.actions;
-export const {} = todosSlice.selectors;
-export const reducer = todosSlice.reducer;
-
 export default todosSlice;

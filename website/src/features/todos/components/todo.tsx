@@ -4,7 +4,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
 import { useAppDispatch } from "@/store/hooks";
-import { todoChanged } from "../store/slice";
+import todosSlice from "../store/slice";
 import type { TodosState } from "../store/slice";
 
 function Todo({ todo }: { todo: TodosState["items"][number] }) {
@@ -12,7 +12,12 @@ function Todo({ todo }: { todo: TodosState["items"][number] }) {
 
   const handleCheck = React.useCallback(
     (checkState: boolean) => {
-      dispatch(todoChanged({ uuid: todo.uuid, newState: checkState }));
+      dispatch(
+        todosSlice.actions.todoChanged({
+          uuid: todo.uuid,
+          newState: checkState,
+        })
+      );
     },
     [dispatch, todo.uuid]
   );

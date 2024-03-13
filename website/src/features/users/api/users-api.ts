@@ -24,6 +24,6 @@ const usersAPI = createApi({
   },
 });
 
-export const { reducer, middleware, useSignUpMutation } = usersAPI;
+export const { reducer, middleware } = usersAPI;
 
 export default usersAPI;

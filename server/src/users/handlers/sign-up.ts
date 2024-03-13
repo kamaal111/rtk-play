@@ -4,8 +4,6 @@ import { UserAlreadyExists } from "../errors";
 
 import type { Context } from "../../types";
 
-const path = "/sign-up";
-
 const hooks = {
   body: t.Object({
     email: t.String({ format: "email", default: null }),
@@ -33,7 +31,6 @@ async function handler({ db, body, set }: Context<typeof hooks>) {
 }
 
 const signUp = {
-  path,
   hooks,
   handler,
 };

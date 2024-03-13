@@ -24,6 +24,6 @@ const healthAPI = createApi({
   },
 });
 
-export const { reducer, middleware, useGetPingQuery } = healthAPI;
+// export const { reducer, middleware, useGetPingQuery } = healthAPI;
 
 export default healthAPI;

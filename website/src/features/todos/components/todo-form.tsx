@@ -3,7 +3,7 @@ import React from "react";
 import Input from "@/components/input";
 
 import { useAppDispatch } from "@/store/hooks";
-import { todoAdded } from "../store/slice";
+import todosSlice from "../store/slice";
 import { Button } from "@/components/ui/button";
 
 const currentTodoMinimumLength = 1;
@@ -19,7 +19,7 @@ function TodoForm() {
       e.preventDefault();
       if (!currentTodoIsValid) return;
 
-      dispatch(todoAdded({ text: currentTodo }));
+      dispatch(todosSlice.actions.todoAdded({ text: currentTodo }));
       setCurrentTodo("");
     },
     [currentTodo, currentTodoIsValid, dispatch]
