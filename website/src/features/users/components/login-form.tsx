@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import usersAPI from "@/features/users/api/users-api";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -47,15 +48,21 @@ const mappedFields: {
   },
 ];
 
+const { useLoginMutation } = usersAPI;
+
 function LoginForm() {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: { email: "" },
   });
 
-  function onSubmit(values: FormSchema) {
-    console.log(values);
+  const [login, result] = useLoginMutation();
+
+  function onSubmit({ email, password }: FormSchema) {
+    login({ email, password });
   }
+
+  console.log("result", result);
 
   return (
     <Form {...form}>

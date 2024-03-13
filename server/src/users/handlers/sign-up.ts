@@ -1,4 +1,5 @@
 import { t } from "elysia";
+import { password } from "bun";
 
 import { UserAlreadyExists } from "../errors";
 
@@ -12,13 +13,13 @@ const hooks = {
 };
 
 async function handler({ db, body, set }: Context<typeof hooks>) {
-  const { email, password } = body;
+  const { email, password: payloadPassword } = body;
   const existingUser = await db.user.findFirst({
     where: { email },
   });
   if (existingUser) throw new UserAlreadyExists();
 
-  const hashedPassword = await Bun.password.hash(password, {
+  const hashedPassword = await password.hash(payloadPassword, {
     algorithm: "bcrypt",
     cost: 8,
   });

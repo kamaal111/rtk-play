@@ -1,14 +1,21 @@
 import { ValidationError, type ErrorHandler } from "elysia";
 
-import usersErrors, { UserAlreadyExists } from "../users/errors";
+import usersErrors, {
+  errorHandlers as usersErrorHandlers,
+} from "../users/errors";
 
 export const errors = {
   ...usersErrors,
 };
 
 type Errors = Record<keyof typeof errors, Error>;
-type ErrorHandlerParams = Parameters<ErrorHandler<Errors>>[0];
+export type ErrorHandlerParams = Parameters<ErrorHandler<Errors>>[0];
 type ErrorCodes = ErrorHandlerParams["code"];
+
+export interface APIError {
+  statusCode: number;
+  message: string;
+}
 
 function handleValidationError({ error }: ErrorHandlerParams) {
   if (!(error instanceof ValidationError)) return;
@@ -23,18 +30,11 @@ function handleValidationError({ error }: ErrorHandlerParams) {
   };
 }
 
-function handleUserAlreadyExistsError({ error, set }: ErrorHandlerParams) {
-  if (!(error instanceof UserAlreadyExists)) return;
-
-  set.status = 409;
-  return { details: error.message };
-}
-
 const errorHandlers: Partial<
   Record<ErrorCodes, (params: ErrorHandlerParams) => object | undefined>
 > = {
+  ...usersErrorHandlers,
   VALIDATION: handleValidationError,
-  UserAlreadyExists: handleUserAlreadyExistsError,
 };
 
 function errorValidator(params: ErrorHandlerParams) {

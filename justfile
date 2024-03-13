@@ -13,8 +13,3 @@ migrate-server:
 bootstrap:
 	just website/bootstrap
 	just server/bootstrap
-
-install-node-modules:
-	#!/bin/zsh
-
-	bun i
