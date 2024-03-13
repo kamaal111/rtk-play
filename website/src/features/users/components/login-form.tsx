@@ -31,7 +31,7 @@ const mappedFields: {
   description: string;
 }[] = [
   {
-    id: "f11216fd-4069-4eec-8962-78ef4e58cf46",
+    id: "1e3fa756-9d32-4220-90ea-93de78af5fe5",
     name: "email",
     type: "email",
     placeholder: "me@email.com",
@@ -39,7 +39,7 @@ const mappedFields: {
     description: "This is your login email address.",
   },
   {
-    id: "49bce2f4-3c2e-4254-8f13-7dc8d046b0ac",
+    id: "b8fb6477-bc9f-4d93-8bc5-e9374da0f5bb",
     name: "password",
     type: "password",
     title: "Password",
@@ -47,7 +47,7 @@ const mappedFields: {
   },
 ];
 
-function SignUpForm() {
+function LoginForm() {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: { email: "" },
@@ -85,10 +85,10 @@ function SignUpForm() {
             />
           );
         })}
-        <Button type="submit">Sign up</Button>
+        <Button type="submit">Login</Button>
       </form>
     </Form>
   );
 }
 
-export default SignUpForm;
+export default LoginForm;
