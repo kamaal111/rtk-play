@@ -1,6 +1,7 @@
 import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
 import { swagger } from "@elysiajs/swagger";
+import { logger } from "@bogeychan/elysia-logger";
 
 import health from "./health";
 import decorators from "./decorators";
@@ -12,6 +13,7 @@ const app = new Elysia({ prefix: "/api/v1" })
   .error(errors)
   .use(cors())
   .use(swagger())
+  .use(logger())
   .onError(errorValidator)
   .use(health)
   .use(users)
