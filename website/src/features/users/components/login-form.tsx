@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import toast, { Toaster } from "react-hot-toast";
 
 import {
   Form,
@@ -56,45 +57,56 @@ function LoginForm() {
     defaultValues: { email: "" },
   });
 
-  const [login, result] = useLoginMutation();
+  const [login, loginResult] = useLoginMutation();
 
   function onSubmit({ email, password }: FormSchema) {
     login({ email, password });
   }
 
-  console.log("result", result);
+  React.useEffect(() => {
+    if (loginResult.status === "rejected") {
+      toast.error("Wrong credentials provided");
+    } else if (loginResult.status === "fulfilled") {
+      // Redirect
+    }
+  }, [loginResult.status]);
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        {mappedFields.map((mappedField) => {
-          return (
-            <FormField
-              key={mappedField.id}
-              control={form.control}
-              name={mappedField.name}
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormLabel>{mappedField.title}</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder={mappedField.placeholder}
-                        type={mappedField.type}
-                      />
-                    </FormControl>
-                    <FormDescription>{mappedField.description}</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
-            />
-          );
-        })}
-        <Button type="submit">Login</Button>
-      </form>
-    </Form>
+    <>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          {mappedFields.map((mappedField) => {
+            return (
+              <FormField
+                key={mappedField.id}
+                control={form.control}
+                name={mappedField.name}
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel>{mappedField.title}</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder={mappedField.placeholder}
+                          type={mappedField.type}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        {mappedField.description}
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+            );
+          })}
+          <Button type="submit">Login</Button>
+        </form>
+      </Form>
+      <Toaster />
+    </>
   );
 }
 
