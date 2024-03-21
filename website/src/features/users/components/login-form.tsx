@@ -15,7 +15,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import usersAPI from "@/features/users/api/users-api";
+
+import { useLoginMutation } from "@/features/users/api/users-api";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -49,17 +50,15 @@ const mappedFields: {
   },
 ];
 
-const { useLoginMutation } = usersAPI;
-
 function LoginForm() {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
-    defaultValues: { email: "" },
+    defaultValues: { email: "", password: "" },
   });
 
   const [login, loginResult] = useLoginMutation();
 
-  function onSubmit({ email, password }: FormSchema) {
+  async function onSubmit({ email, password }: FormSchema) {
     login({ email, password });
   }
 
@@ -70,6 +69,8 @@ function LoginForm() {
       // Redirect
     }
   }, [loginResult.status]);
+
+  console.log("loginResult", loginResult.data);
 
   return (
     <>
